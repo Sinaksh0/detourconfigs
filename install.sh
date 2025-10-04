@@ -10,4 +10,4 @@ curl -fsSL https://raw.githubusercontent.com/Sinaksh0/detourconfigs/refs/heads/m
 python config_manager.py
 
 # انتقال خروجی به حافظه گوشی
-cp configs $HOME/storage/downloads/ && echo "✅ فایل منتقل شد به Downloads"
+cp configs $HOME/storage/shared/ && echo "✅ All configs are added to the file"
