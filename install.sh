@@ -1,5 +1,3 @@
-
-
 # نصب پیش‌نیازها
 pkg update -y && pkg install -y python
 
