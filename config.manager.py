@@ -308,8 +308,7 @@ class Config_manager():
                     print(emoji.emojize('The configs are added :check_mark_button:'))
                     
             outbounds_2 = filtered + old_outbounds
-            final = #profile-title: Test config
-{
+            final = {
                 "outbounds": outbounds_2
                 
                 }
