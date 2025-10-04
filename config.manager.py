@@ -235,7 +235,8 @@ class Config_manager():
                 tag_counter += 1
         final_outbounds = new_config + first_outbounds
         
-        return {
+        return #profile-title: Test config 
+{
             "outbounds": final_outbounds
         }
     
@@ -307,7 +308,8 @@ class Config_manager():
                     print(emoji.emojize('The configs are added :check_mark_button:'))
                     
             outbounds_2 = filtered + old_outbounds
-            final = {
+            final = #profile-title: Test config
+{
                 "outbounds": outbounds_2
                 
                 }
