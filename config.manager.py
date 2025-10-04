@@ -275,32 +275,32 @@ class Config_manager():
                             link["method"] == old["method"] and \
                             link["password"] == old["password"]:
                                 is_duplicate = True
+                                print(emoji.emojize('The configs (ss) are filtered :cross_mark:'))
                                 break
-                        print(emoji.emojize('The configs (ss) are filtered :cross_mark:'))
                         
                     elif link["type"] == "vmess":
                          if link["server"] == old["server"] and \
                             link["server_port"] == old["server_port"] and \
                             link["uuid"] == old.get("uuid"):
                              is_duplicate = True
+                             print(emoji.emojize('The configs (vmess) are filtered :cross_mark:'))
                              break
-                         print(emoji.emojize('The configs (vmess) are filtered :cross_mark:'))
                          
                     elif link["type"] == "vless":
                          if link["server"] == old["server"] and \
                             link["server_port"] == old["server_port"] and \
                             link["uuid"] == old.get("uuid"):
                              is_duplicate = True
+                             print(emoji.emojize('The configs (vless) are filtered :cross_mark:'))
                              break
-                         print(emoji.emojize('The configs (vless) are filtered :cross_mark:'))
                          
                     elif link["type"] == "trojan":
                          if link["server"] == old["server"] and \
                             link["server_port"] == old["server_port"] and \
                             link["password"] == old.get("password"):
                              is_duplicate = True
+                             print(emoji.emojize('The configs (trojan) are filtered :cross_mark:'))
                              break
-                         print(emoji.emojize('The configs (trojan) are filtered :cross_mark:'))
                          
                 if not is_duplicate:
                     filtered.append(link)
@@ -328,6 +328,7 @@ class Config_manager():
 
 play = True
 while play:
+    print("Check the list and choose one of them:")
     print("1. Get Configs")
     print("2. Exit")
     
