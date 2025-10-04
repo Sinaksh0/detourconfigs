@@ -326,5 +326,5 @@ class Config_manager():
             except Exception as e:
                 print(emoji.emojize(f' Error : {e} :cross_mark:')) 
 
-my_config = Config_manager('https://raw.githubusercontent.com/arshiacomplus/robinhood-v1-v2-v3ray/refs/heads/main/conf.txt#conf')
+my_config = Config_manager('https://raw.githubusercontent.com/aiiniimortez/ShadowBear/refs/heads/main/Speedtest/all-1MB.txt')
 my_config.save_to_file()
