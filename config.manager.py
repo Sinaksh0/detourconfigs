@@ -276,7 +276,7 @@ class Config_manager():
                             link["password"] == old["password"]:
                                 is_duplicate = True
                                 break
-                        print(emoji.emojize('The configs (ss) is added :check_mark_button:'))
+                        print(emoji.emojize('The configs (ss) are filtered :cross_mark:'))
                         
                     elif link["type"] == "vmess":
                          if link["server"] == old["server"] and \
@@ -284,7 +284,7 @@ class Config_manager():
                             link["uuid"] == old.get("uuid"):
                              is_duplicate = True
                              break
-                         print(emoji.emojize('The configs (vmess) is added :check_mark_button:'))
+                         print(emoji.emojize('The configs (vmess) are filtered :cross_mark:'))
                          
                     elif link["type"] == "vless":
                          if link["server"] == old["server"] and \
@@ -292,7 +292,7 @@ class Config_manager():
                             link["uuid"] == old.get("uuid"):
                              is_duplicate = True
                              break
-                         print(emoji.emojize('The configs (vless) is added :check_mark_button:'))
+                         print(emoji.emojize('The configs (vless) are filtered :cross_mark:'))
                          
                     elif link["type"] == "trojan":
                          if link["server"] == old["server"] and \
@@ -300,11 +300,11 @@ class Config_manager():
                             link["password"] == old.get("password"):
                              is_duplicate = True
                              break
-                         print(emoji.emojize('The configs (trojan) is added :check_mark_button:'))
+                         print(emoji.emojize('The configs (trojan) are filtered :cross_mark:'))
                          
                 if not is_duplicate:
                     filtered.append(link)
-                    print(emoji.emojize('The configs filtered :cross_mark:'))
+                    print(emoji.emojize('The configs are added :check_mark_button:'))
                     
             outbounds_2 = filtered + old_outbounds
             final = {
@@ -326,5 +326,29 @@ class Config_manager():
             except Exception as e:
                 print(emoji.emojize(f' Error : {e} :cross_mark:')) 
 
-my_config = Config_manager('https://raw.githubusercontent.com/arshiacomplus/robinhood-v1-v2-v3ray/refs/heads/main/conf.txt#conf')
-my_config.save_to_file()
+play = True
+while play:
+    print("1. Get Configs")
+    print("2. Exit")
+    
+    try:
+        choose = int(input("Enter a number from the list: "))
+    except:
+        choose = int(input("Dadash, Just enter a number: "))
+    
+    if choose == 1:
+        Url = input("Take me your sub link: ")
+        my_config = Config_manager(Url)
+        my_config.save_to_file()
+        more = input("Do you need more configs (Y,N): ")
+        if more.upper() == "Y":
+            play = True
+        else:
+            play = False
+            break
+    elif choose == 2:
+        print(emoji.emojize("Goodbye :hand_with_fingers_splayed:"))
+        break
+        
+    else:
+        print(emoji.emojize("Invaild number :cross_mark:"))
