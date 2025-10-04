@@ -235,8 +235,7 @@ class Config_manager():
                 tag_counter += 1
         final_outbounds = new_config + first_outbounds
         
-        return #profile-title: Test config 
-{
+        return #profile-title: {
             "outbounds": final_outbounds
         }
     
