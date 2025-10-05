@@ -39,15 +39,15 @@ class Config_manager():
         else:
             suffix = ""
         secound_tag = f'{tag}{suffix}'
-        return {
-            "type": "shadowsocks",
-            "tag": secound_tag,
-            "server": server,
-            "server_port": int(port),
-            "method": method,
-            "password": password,
-            "detour": "\ud83c\uddee\ud83c\uddf7IR\ud83d\ude80YourIP\uD83D\uDEE1\uFE0F"
-        }
+        return{
+           "type": "shadowsocks",
+           "tag": secound_tag,
+           "server": server,
+           "server_port": int(port),
+           "method": method,
+           "password": password,
+           "detour": "\ud83c\uddee\ud83c\uddf7IR\ud83d\ude80YourIP\uD83D\uDEE1\uFE0F"
+       }
 
     def parse_vmess(self, link, tag_index=None):
         if not link.startswith("vmess://"):
@@ -67,39 +67,39 @@ class Config_manager():
         transport = {}
 
         if transport_type == "ws":
-            transport = {
-                "type": "ws",
-                "path": data.get("path", "/"),
-                "headers": {
-                    "Host": data.get("host", "")
-                }
-            }
+            transport ={
+               "type": "ws",
+               "path": data.get("path", "/"),
+               "headers": {
+                   "Host": data.get("host", "")
+               }
+           }
         elif transport_type == "grpc":
-            transport = {
-                "type": "grpc",
-                "service_name": data.get("path", "")
-            }
+            transport ={
+               "type": "grpc",
+               "service_name": data.get("path", "")
+           }
         elif transport_type == "h2":
-            transport = {
-                "type": "http",
-                "path": data.get("path", "/"),
-                "host": data.get("host", "")
-            }
+            transport ={
+               "type": "http",
+               "path": data.get("path", "/"),
+               "host": data.get("host", "")
+           }
         
-        return {
-            "type": "vmess",
-            "tag": secound_tag,
-            "server": data.get("add"),
-            "server_port": int(data.get("port")),
-            "uuid": data.get("id"),
-            "tls": {
-                "enabled": data.get("tls", "") == "tls",
-                "server_name": data.get("add", ""),
-                "insecure": False
-            },
-            "transport": transport,
-            "detour": "\ud83c\uddee\ud83c\uddf7IR\ud83d\ude80YourIP\uD83D\uDEE1\uFE0F"
-        }
+        return{
+           "type": "vmess",
+           "tag": secound_tag,
+           "server": data.get("add"),
+           "server_port": int(data.get("port")),
+           "uuid": data.get("id"),
+           "tls": {
+               "enabled": data.get("tls", "") == "tls",
+               "server_name": data.get("add", ""),
+               "insecure": False
+        },
+           "transport": transport,
+           "detour": "\ud83c\uddee\ud83c\uddf7IR\ud83d\ude80YourIP\uD83D\uDEE1\uFE0F"
+       }
 
     
     def parse_vless(self, link, tag_index=None):
@@ -123,43 +123,43 @@ class Config_manager():
         
         transport_type = params.get("type", ["tcp"])[0]
         transport = {}
-      
+
         if transport_type == "ws":
-              transport = {
-                  "type": "ws",
-                  "path": params.get("path", ["/"])[0],
-                  "headers": {
-                      "Host": params.get("host", [""])[0]
-                  }
-              }
+              transport ={
+                 "type": "ws",
+                 "path": params.get("path", ["/"])[0],
+                 "headers": {
+                     "Host": params.get("host", [""])[0]
+                 }
+             }
         elif transport_type == "grpc":
-              transport = {
-                  "type": "grpc",
-                  "service_name": params.get("serviceName", [""])[0]
-              }
+              transport ={
+                 "type": "grpc",
+                 "service_name": params.get("serviceName", [""])[0]
+             }
         elif transport_type == "h2":
-              transport = {
-                  "type": "http",
-                  "path": params.get("path", ["/"])[0],
-                  "host": params.get("host", [""])[0]
-              }
+              transport ={
+                 "type": "http",
+                 "path": params.get("path", ["/"])[0],
+                 "host": params.get("host", [""])[0]
+             }
         
-        tls = {
-            "enabled": params.get("security", [""]) == ["tls"],
-            "server_name": server,
-            "insecure": False
-          }
+        tls ={
+           "enabled": params.get("security", [""]) == ["tls"],
+           "server_name": server,
+           "insecure": False
+         }
         
-        return {
-              "type": "vless",
-              "tag": secound_tag,
-              "server": server,
-              "server_port": int(port),
-              "uuid": uuid,
-              "tls": tls,
-              "transport": transport,
-              "detour": "\ud83c\uddee\ud83c\uddf7IR\ud83d\ude80YourIP\uD83D\uDEE1\uFE0F"
-          }
+        return{
+             "type": "vless",
+             "tag": secound_tag,
+             "server": server,
+             "server_port": int(port),
+             "uuid": uuid,
+             "tls": tls,
+             "transport": transport,
+             "detour": "\ud83c\uddee\ud83c\uddf7IR\ud83d\ude80YourIP\uD83D\uDEE1\uFE0F"
+         }
 
     
     def parse_trojan(self, link, tag_index=None):
@@ -181,32 +181,79 @@ class Config_manager():
         suffix = f'-{tag_index}' if tag_index is not None else ""
         secound_tag = f'{tag}{suffix}'
     
-        return {
-            "type": "trojan",
+        return{
+           "type": "trojan",
+           "tag": secound_tag,
+           "server": server,
+           "server_port": int(port),
+           "password": password,
+           "tls": {
+               "enabled": params.get("security", [""]) == ["tls"],
+               "server_name": params.get("sni", [""])[0],
+               "insecure": False
+           },
+           "detour": "\ud83c\uddee\ud83c\uddf7IR\ud83d\ude80YourIP\uD83D\uDEE1\uFE0F"
+       }
+    def parse_hysteria2(self, link, tag_index=None):
+        if not link.startswith("hysteria2://"):
+            return None
+    
+        raw = link[len("hysteria2://"):]
+        if '#' in raw:
+            raw, tag = raw.split('#', 1)
+            tag = unquote(tag)
+        else:
+            tag = 'Unknown'
+    
+        server_part, _, query_string = raw.partition("?")
+        server_host, _, server_port = server_part.partition(":")
+        params = parse_qs(query_string)
+    
+        def get_param(key, default=None):
+            return params.get(key, [default])[0]
+    
+        suffix = f'-{tag_index}' if tag_index is not None else ""
+        secound_tag = f'{tag}{suffix}'
+    
+        config = {
+            "type": "hysteria2",
             "tag": secound_tag,
-            "server": server,
-            "server_port": int(port),
-            "password": password,
+            "server": server_host,
+            "server_port": int(server_port) if server_port else 443,
+            "up_mbps": int(get_param("upmbps", 10)),
+            "down_mbps": int(get_param("downmbps", 50)),
+            "password": get_param("password", ""),
             "tls": {
-                "enabled": params.get("security", [""]) == ["tls"],
-                "server_name": params.get("sni", [""])[0],
-                "insecure": False
+                "enabled": True,
+                "server_name": get_param("server-name", server_host),
+                "insecure": get_param("insecure", "0") == "1"
             },
             "detour": "\ud83c\uddee\ud83c\uddf7IR\ud83d\ude80YourIP\uD83D\uDEE1\uFE0F"
         }
+    
+        return config
 
         
     def build_config(self):
         first_outbounds = [
             {
-              "type": "shadowsocks",
-              "tag": "\ud83c\uddee\ud83c\uddf7IR\ud83d\ude80YourIP\uD83D\uDEE1\uFE0F",
-              "server": "4.223.106.240",
-              "server_port": 48172,
-              "method": "chacha20-ietf-poly1305",
-              "password": "51yloQC8D9w1Wae7FHtI65"
-            },
-            {
+             "type": "wireguard",
+             "tag": "🇮🇷IR🚀YourIP🛡️",
+             "local_address":       [
+               "172.16.0.2/24",
+               "2606:4700:110:8056:6ec9:563a:d8e7:5097/128"
+             ],
+             "private_key": "KCjQEsNIOKmDuov9MSnp1CkufGh2aAPwkV4NYx/reG4=",
+             "server": "162.159.195.1",
+             "server_port": 987,
+             "peer_public_key": "bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo=",
+             "mtu": 1306,
+             "fake_packets": "40-80",
+             "fake_packets_size": "40-100",
+             "fake_packets_delay": "4-8",
+             "fake_packets_mode": "m4"
+           },
+           {
               "type": "shadowsocks",
               "tag": "\uD83E\uDDD1\u200D\uD83D\uDCBBDEVELOPED-BY-SINA-KSH\u26a1\ufe0f",
               "server": "127.0.0.1",
@@ -217,7 +264,10 @@ class Config_manager():
           ]
 
         new_config = []
-        Configs = self.get_config()
+        if hasattr(self, "get_config2"):
+            Configs = self.get_config2()
+        else:
+            Configs = self.get_config()
         tag_counter = 1
         for config in Configs:
             if config.startswith("ss://"):
@@ -228,6 +278,8 @@ class Config_manager():
                 parsed = self.parse_vless(config, tag_index=tag_counter)
             elif config.startswith("trojan://"):
                 parsed = self.parse_trojan(config, tag_index=tag_counter)
+            elif config.startswith("hysteria2://"):
+                parsed = self.parse_hysteria2(config, tag_index= tag_counter)
             else:
                 parsed = None
             if parsed:
@@ -237,11 +289,16 @@ class Config_manager():
         
         return {
             "outbounds": final_outbounds
+
         }
     
     def build_secound(self):
         new_config2 = []
-        links = self.get_config()
+        if hasattr(self, "get_config2"):
+            links = self.get_config2()
+        else:
+            links = self.get_config()
+
         tag_counter = 1
         for link in links:
             if link.startswith("ss://"):
@@ -252,6 +309,8 @@ class Config_manager():
                 parsed = self.parse_vless(link, tag_index=tag_counter)
             elif link.startswith("trojan://"):
                 parsed = self.parse_trojan(link, tag_index=tag_counter)
+            elif link.startswith("hysteria2://"):
+                parsed = self.parse_hysteria2(link, tag_index= tag_counter)
             else:
                 parsed = None
             if parsed:
@@ -302,6 +361,14 @@ class Config_manager():
                              print(emoji.emojize('The configs (trojan) are filtered :cross_mark:'))
                              break
                          
+                    elif link["type"] == "hysteria2":
+                         if link["server"] == old["server"] and \
+                            link["server_port"] == old["server_port"] and \
+                            link["password"] == old.get("password"):
+                                is_duplicate = True
+                                print(emoji.emojize('The configs (hysteria2) are filtered :cross_mark:'))
+                                break
+                            
                 if not is_duplicate:
                     filtered.append(link)
                     print(emoji.emojize('The configs are added :check_mark_button:'))
@@ -326,28 +393,61 @@ class Config_manager():
             except Exception as e:
                 print(emoji.emojize(f' Error : {e} :cross_mark:')) 
 
+class URL_Manager(Config_manager):
+    def __init__(self, URL, url = None):
+        Config_manager.__init__(self, url)
+        self.URL = URL
+    
+    def get_config2(self):
+        try:
+            return [self.URL.strip()]
+        except Exception as e:
+            print(f'The error is {e}')
+            return []
+        
+    def call_all(self):
+        Url_config = self.get_config2()
+        if not Url_config:
+            return None
+        self.save_to_file()
+        return Url_config
+
 play = True
 while play:
     print("Check the list and choose one of them:")
-    print("1. Get Configs")
-    print("2. Exit")
+    print("1. Get Configs from sub link")
+    print("2. Get Configs from URL")
+    print("3. Exit")
     
     try:
         choose = int(input("Enter a number from the list: "))
     except:
-        choose = int(input("Dadash, Just enter a number: "))
+        choose = int(input("Just enter a number: "))
     
     if choose == 1:
         Url = input("Take me your sub link: ")
         my_config = Config_manager(Url)
         my_config.save_to_file()
-        more = input("Do you need more configs (Y,N): ")
+        more = input("Do you need more configs? (Y,N): ")
         if more.upper() == "Y":
             play = True
         else:
             play = False
+            print(emoji.emojize("Goodbye :hand_with_fingers_splayed:"))
             break
     elif choose == 2:
+        URL = input("Take me your URL config like (ss://): ")
+        your_config = URL_Manager(URL)
+        your_config.call_all()
+        more = input("Do you need more configs? (Y,N): ")
+        if more.upper() == "Y":
+            play = True
+        else:
+            play = False
+            print(emoji.emojize("Goodbye :hand_with_fingers_splayed:"))
+            break
+        
+    elif choose == 3:
         print(emoji.emojize("Goodbye :hand_with_fingers_splayed:"))
         break
         
