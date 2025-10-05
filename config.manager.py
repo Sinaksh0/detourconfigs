@@ -400,7 +400,7 @@ class URL_Manager(Config_manager):
     
     def get_config2(self):
         try:
-            return [self.URL.strip().spiltlines()]
+            return [self.URL.strip()]
         except Exception as e:
             print(f'The error is {e}')
             return []
