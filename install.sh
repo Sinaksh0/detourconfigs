@@ -1,6 +1,8 @@
 # نصب پیش‌نیازها
 pkg update -y && pkg install -y python
 
+pip install emoji
+
 #دسترسی به حافظه
 termux-setup-storage
 
