@@ -238,7 +238,7 @@ class Config_manager():
         first_outbounds = [
             {
              "type": "wireguard",
-             "tag": "🇮🇷IR🚀YourIP🛡️",
+             "tag": "\ud83c\uddee\ud83c\uddf7IR\ud83d\ude80YourIP\uD83D\uDEE1\uFE0F",
              "local_address":       [
                "172.16.0.2/24",
                "2606:4700:110:8056:6ec9:563a:d8e7:5097/128"
@@ -438,7 +438,7 @@ while play:
         Url = input("Take me your sub link: ")
         my_config = Config_manager(Url)
         my_config.save_to_file()
-        more = input("Do you need more configs? (Y,N): ")
+        more = input("Do you need more configs (From sub link or URL config)? (Y,N): ")
         if more.upper() == "Y":
             play = True
         else:
@@ -446,10 +446,18 @@ while play:
             print(emoji.emojize("Goodbye :hand_with_fingers_splayed:"))
             break
     elif choose == 2:
-        URL = input("Take me your URL config like (ss://) (Just one by one): ")
-        your_config = URL_Manager(URL)
-        your_config.call_all()
-        more = input("Do you need more configs? (Y,N): ")
+        Game = True
+        while Game:
+            URL = input("Take me your URL config like (ss://) (Just one by one): ")
+            your_config = URL_Manager(URL)
+            your_config.call_all()
+            want = input('Do want to enter another URL config to add? (Y,N): ')
+            if want.upper() == "Y":
+                want = True
+            else:
+                want = False
+                break
+        more = input("Do you need more configs (From sub link or URL config)? (Y,N): ")
         if more.upper() == "Y":
             play = True
         else:
