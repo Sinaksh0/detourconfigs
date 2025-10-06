@@ -400,7 +400,17 @@ class URL_Manager(Config_manager):
     
     def get_config2(self):
         try:
-            return [self.URL.strip()]
+            raw =self.URL.replace("\r", "\n").replace("...", "\n").strip()
+            
+            links = raw.split("\n")
+            configs = []
+            for link in links:
+                cleaned = link.strip()
+                if cleaned:
+                    configs.append(cleaned)
+                
+                return configs
+            
         except Exception as e:
             print(f'The error is {e}')
             return []
@@ -436,7 +446,7 @@ while play:
             print(emoji.emojize("Goodbye :hand_with_fingers_splayed:"))
             break
     elif choose == 2:
-        URL = input("Take me your URL config like (ss://): ")
+        URL = input("Take me your URL config like (ss://) (Just one by one): ")
         your_config = URL_Manager(URL)
         your_config.call_all()
         more = input("Do you need more configs? (Y,N): ")
