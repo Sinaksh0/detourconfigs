@@ -3,6 +3,7 @@ import json
 import base64
 import emoji
 import os
+import re
 from urllib.parse import urlparse, unquote, parse_qs
 
 class Config_manager():
@@ -17,6 +18,44 @@ class Config_manager():
             print(f'The error is {e}')
             return []
         
+    def Get_json(self):
+        try:
+            clean = self.url.split("#")[0]
+            response = requests.get(clean, timeout = 5)
+            if response.status_code != 200:
+                print(emoji.emojizw('I cannot recieve your sub link :cross_mark:'))
+                return []
+            
+            raw = response.text 
+            match = re.search(r"\{.*\}", raw, re.DOTALL)
+            if not match:
+                print(emoji.emojize('Json is not found :cross_mark:'))
+                return []
+            
+            json_text = match.group(0)
+            return json.loads(json_text)
+        
+        except Exception as e:
+            print(f'The error is : {e}')
+            return []
+        
+    def add_detour(self):
+        data = self.Get_json()
+        if "outbounds" not in data:
+            print(emoji.emojize('The outbounds is not found :cross_mark:'))
+            return None
+        
+        type_conf = ["vless", "vmess", "shadowsocks", "hysteria", "hysteria2", "trojan"]
+        
+        for out in data["outbounds"]:
+            if isinstance(out, dict):
+                if out.get("type") in type_conf:
+                    out["detour"] = "\ud83c\uddee\ud83c\uddf7IR\ud83d\ude80YourIP\uD83D\uDEE1\uFE0F"
+        return data
+        
+        print('All the outbounds are added (detour)')
+        return data
+            
     def parse_ss(self, link, tag_index = None):
         if not link.startswith("ss://"):
             return None
@@ -262,12 +301,22 @@ class Config_manager():
               "password": "bcaacba-caba-aabc-badc-bcbccbbacaaa"
             }
           ]
-
-        new_config = []
+        if self.url.strip().startswith("{") or self.url.endswith(".json"):
+            json_data = self.Get_json()
+            if isinstance(json_data, dict) and "outbounds" in json_data:
+                json_config = self.add_detour()
+                if isinstance(json_config, dict) and "outbounds" in json_config:
+                    final_out = json_config + first_outbounds
+                return {
+                    "outbounds": final_out
+            
+                }
+            
         if hasattr(self, "get_config2"):
             Configs = self.get_config2()
         else:
             Configs = self.get_config()
+        new_config = []
         tag_counter = 1
         for config in Configs:
             if config.startswith("ss://"):
@@ -286,19 +335,26 @@ class Config_manager():
                 new_config.append(parsed)
                 tag_counter += 1
         final_outbounds = new_config + first_outbounds
-        
+            
         return {
             "outbounds": final_outbounds
-
+    
         }
     
     def build_secound(self):
+        if self.url.strip().startswith("{") or self.url.endswith(".json"):
+            json_data = self.Get_json()
+            if isinstance(json_data, dict) and "outbounds" in json_data:
+                patched = self.add_detour()
+                if isinstance(patched, dict) and "outbounds" in patched:
+                    return patched["outbounds"]
+            
         new_config2 = []
         if hasattr(self, "get_config2"):
             links = self.get_config2()
         else:
             links = self.get_config()
-
+        new_config2 = []
         tag_counter = 1
         for link in links:
             if link.startswith("ss://"):
@@ -394,22 +450,14 @@ class Config_manager():
                 print(emoji.emojize(f' Error : {e} :cross_mark:')) 
 
 class URL_Manager(Config_manager):
-    def __init__(self, URL, url = None):
-        Config_manager.__init__(self, url)
+    def __init__(self, URL):
+        super().__init__(URL)
         self.URL = URL
     
     def get_config2(self):
         try:
-            raw =self.URL.replace("\r", "\n").replace("...", "\n").strip()
-            
-            links = raw.split("\n")
-            configs = []
-            for link in links:
-                cleaned = link.strip()
-                if cleaned:
-                    configs.append(cleaned)
-                
-                return configs
+            Url = self.URL
+            return Url.strip().splitlines()
             
         except Exception as e:
             print(f'The error is {e}')
@@ -438,7 +486,7 @@ while play:
         Url = input("Take me your sub link: ")
         my_config = Config_manager(Url)
         my_config.save_to_file()
-        more = input("Do you need more configs (From sub link or URL config)? (Y,N): ")
+        more = input("Do you need more configs? (Y,N): ")
         if more.upper() == "Y":
             play = True
         else:
