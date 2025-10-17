@@ -8,7 +8,7 @@ termux-setup-storage
 pip install emoji
 
 # گرفتن فایل پایتون
-echo "📥 Downloading config_manager.py..."
+echo "📥 Downloading file..."
 curl -fsSL https://raw.githubusercontent.com/Sinaksh0/detourconfigs/refs/heads/main/config.manager.py -o config_manager.py
 
 # اجرای فایل
