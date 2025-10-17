@@ -2,20 +2,10 @@
 pkg update -y && pkg install -y python
 
 # بررسی دسترسی به حافظه
-if [ ! -d "$HOME/storage/shared" ]; then
-    echo "📂 Storage not set up. Running termux-setup-storage..."
-    termux-setup-storage
-else
-    echo "✅ Storage access already granted."
-fi
+termux-setup-storage
 
 # بررسی نصب emoji
-if ! pip show emoji > /dev/null 2>&1; then
-    echo "📦 Installing emoji library..."
-    pip install emoji
-else
-    echo "✅ emoji already installed."
-fi
+pip install emoji
 
 # گرفتن فایل پایتون
 echo "📥 Downloading config_manager.py..."
