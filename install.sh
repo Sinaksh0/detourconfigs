@@ -36,7 +36,7 @@ fi
 # مرحله 4: ساخت فایل .env
 echo -e "\e[33m⚙️ Creating file...\e[0m"
 cat <<EOF > .env
-GITHUB_TOKEN=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
+GITHUB_TOKEN=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
 REPO_NAME=Sinaksh0/detourconfigs
 CONFIG_PATH=configs/select.txt
 EOF
