@@ -1,27 +1,32 @@
+#profile-title: Test
+#profile-update-interval: 1
+#subscription-userinfo: upload=0; download=1000000000; total=10737418240000000; expire=10829272882
 {
-  "type": "shadowsocks",
-  "tag": "\ud83c\udde9\ud83c\uddea ShatakVPN 584522-22",
-  "server": "81.19.141.45",
-  "server_port": 443,
-  "method": "chacha20-ietf-poly1305",
-  "password": "BAE0SQ68IjBhTqtdtaQHrR",
-  "detour": "\ud83c\uddee\ud83c\uddf7IR\ud83d\ude80YourIP\ud83d\udee1\ufe0f"
-},
-{
-  "type": "shadowsocks",
-  "tag": "\ud83c\uddf3\ud83c\uddf1 ShatakVPN 805817-95",
-  "server": "151.242.251.142",
-  "server_port": 8080,
-  "method": "chacha20-ietf-poly1305",
-  "password": "k1dBOmOB4oqi7Ump37a1bQ",
-  "detour": "\ud83c\uddee\ud83c\uddf7IR\ud83d\ude80YourIP\ud83d\udee1\ufe0f"
-},
-{
-  "type": "shadowsocks",
-  "tag": "\ud83c\uddfb\ud83c\uddf3 ShatakVPN 965779-328",
-  "server": "103.186.154.74",
-  "server_port": 38388,
-  "method": "aes-256-cfb",
-  "password": "Xn8jKdmDM00IeO%#$#fJAMtsEAEUOpH/YWYtYqDFnT0SV",
-  "detour": "\ud83c\uddee\ud83c\uddf7IR\ud83d\ude80YourIP\ud83d\udee1\ufe0f"
-},
+  "outbounds": [
+    {
+      "type": "wireguard",
+      "tag": "\ud83c\uddee\ud83c\uddf7IR\ud83d\ude80YourIP\uD83D\uDEE1\uFE0F",
+      "local_address":       [
+        "172.16.0.2/24",
+        "2606:4700:110:8056:6ec9:563a:d8e7:5097/128"
+      ],
+      "private_key": "KCjQEsNIOKmDuov9MSnp1CkufGh2aAPwkV4NYx/reG4=",
+      "server": "162.159.192.17",
+      "server_port": 5956,
+      "peer_public_key": "bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo=",
+      "mtu": 1306,
+      "fake_packets": "40-80",
+      "fake_packets_size": "40-100",
+      "fake_packets_delay": "4-8",
+      "fake_packets_mode": "m4"
+    },
+    {
+      "type": "shadowsocks",
+      "tag": "\uD83E\uDDD1\u200D\uD83D\uDCBBDEVELOPED-BY-SINA-KSH\u26a1\ufe0f",
+      "server": "127.0.0.1",
+      "server_port": 8080,
+      "method": "none",
+      "password": "bcaacba-caba-aabc-badc-bcbccbbacaaa"
+    }
+    ]
+}
