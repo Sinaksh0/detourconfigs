@@ -1,0 +1,27 @@
+{
+  "type": "shadowsocks",
+  "tag": "\ud83c\uddf3\ud83c\uddf1 ShatakVPN 872838-255",
+  "server": "92.112.126.90",
+  "server_port": 443,
+  "method": "chacha20-ietf-poly1305",
+  "password": "RFK38Cg7APneSB5cWDcpbm",
+  "detour": "\ud83c\uddee\ud83c\uddf7IR\ud83d\ude80YourIP\ud83d\udee1\ufe0f"
+}
+{
+  "type": "shadowsocks",
+  "tag": "\ud83c\udde8\ud83c\udde6 ShatakVPN 127907-269",
+  "server": "142.4.216.225",
+  "server_port": 80,
+  "method": "chacha20-ietf-poly1305",
+  "password": "JIhN6rBKkaEboLNXVSv5rq",
+  "detour": "\ud83c\uddee\ud83c\uddf7IR\ud83d\ude80YourIP\ud83d\udee1\ufe0f"
+}
+{
+  "type": "shadowsocks",
+  "tag": "\ud83c\udde8\ud83c\uddff ShatakVPN 333079-190",
+  "server": "195.181.160.6",
+  "server_port": 990,
+  "method": "chacha20-ietf-poly1305",
+  "password": "f8f7aCzcPKbsF8p3",
+  "detour": "\ud83c\uddee\ud83c\uddf7IR\ud83d\ude80YourIP\ud83d\udee1\ufe0f"
+}
