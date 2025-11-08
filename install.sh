@@ -33,15 +33,6 @@ else
     echo -e "\e[32m✅ emoji already installed.\e[0m"
 fi
 
-# مرحله 4: ساخت فایل .env
-echo -e "\e[33m⚙️ Creating file...\e[0m"
-cat <<EOF > .env
-GITHUB_TOKEN=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
-REPO_NAME=Sinaksh0/detourconfigs
-CONFIG_PATH=configs/select.txt
-EOF
-echo -e "\e[32m✅ .env file created.\e[0m"
-
 # مرحله 5: دریافت فایل پایتون
 echo -e "\e[33m📥 Downloading file...\e[0m"
 curl -fsSL https://raw.githubusercontent.com/Sinaksh0/detourconfigs/main/config.manager.py -o config_manager.py || {
@@ -58,9 +49,10 @@ python config_manager.py || {
     exit 1
 }
 
-# مرحله 8: حذف فایل‌های موقتی
-echo -e "\e[33m🧹 Cleaning up...\e[0m"
-rm -f .env
-echo -e "\e[32m✅ Cleanup complete.\e[0m"
+if [ -f configs ]; then
+    cp configs "$HOME/storage/shared/" && echo -e "\e[32m✅ All Configs copied to the file.\e[0m"
+else
+    echo -e "\e[33m⚠️ configs file not found. Skipping copy.\e[0m"
+fi
 
 echo -e "\e[32m🎉 Setup complete.\e[0m"
