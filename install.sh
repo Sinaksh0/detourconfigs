@@ -33,25 +33,34 @@ else
     echo -e "\e[32m✅ emoji already installed.\e[0m"
 fi
 
-# مرحله 4: دریافت فایل پایتون
+# مرحله 4: ساخت فایل .env
+echo -e "\e[33m⚙️ Creating file...\e[0m"
+cat <<EOF > .env
+GITHUB_TOKEN=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
+REPO_NAME=Sinaksh0/detourconfigs
+CONFIG_PATH=configs/select.txt
+EOF
+echo -e "\e[32m✅ .env file created.\e[0m"
+
+# مرحله 5: دریافت فایل پایتون
 echo -e "\e[33m📥 Downloading file...\e[0m"
 curl -fsSL https://raw.githubusercontent.com/Sinaksh0/detourconfigs/main/config.manager.py -o config_manager.py || {
     echo -e "\e[31m❌ Failed to download config_manager.py. Exiting.\e[0m"
+    rm -f .env
     exit 1
 }
 
-# مرحله 5: اجرای فایل
+# مرحله 6: اجرای فایل
 echo -e "\e[36m🚀 Launching file...\e[0m"
 python config_manager.py || {
     echo -e "\e[31m❌ Python script failed to run. Exiting.\e[0m"
+    rm -f .env config_manager.py
     exit 1
 }
 
-# مرحله 6: انتقال خروجی به حافظه گوشی
-if [ -f configs ]; then
-    cp configs "$HOME/storage/shared/" && echo -e "\e[32m✅ All Configs copied to the file.\e[0m"
-else
-    echo -e "\e[33m⚠️ configs file not found. Skipping copy.\e[0m"
-fi
+# مرحله 8: حذف فایل‌های موقتی
+echo -e "\e[33m🧹 Cleaning up...\e[0m"
+rm -f .env
+echo -e "\e[32m✅ Cleanup complete.\e[0m"
 
 echo -e "\e[32m🎉 Setup complete.\e[0m"
