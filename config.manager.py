@@ -6,7 +6,7 @@ import os
 import re
 from urllib.parse import urlparse, unquote, parse_qs
 
-class Config_manager():
+class Config_Manager:
     def __init__(self, url):
         self.url =url
     
@@ -51,9 +51,6 @@ class Config_manager():
             if isinstance(out, dict):
                 if out.get("type") in type_conf:
                     out["detour"] = "\ud83c\uddee\ud83c\uddf7IR\ud83d\ude80YourIP\uD83D\uDEE1\uFE0F"
-        return data
-        
-        print('All the outbounds are added (detour)')
         return data
             
     def parse_ss(self, link, tag_index = None):
@@ -276,23 +273,27 @@ class Config_manager():
     def build_config(self):
         first_outbounds = [
             {
-             "type": "wireguard",
-             "tag": "\ud83c\uddee\ud83c\uddf7IR\ud83d\ude80YourIP\uD83D\uDEE1\uFE0F",
-             "local_address":       [
-               "172.16.0.2/24",
-               "2606:4700:110:8056:6ec9:563a:d8e7:5097/128"
-             ],
-             "private_key": "KCjQEsNIOKmDuov9MSnp1CkufGh2aAPwkV4NYx/reG4=",
-             "server": "162.159.195.1",
-             "server_port": 987,
-             "peer_public_key": "bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo=",
-             "mtu": 1306,
-             "fake_packets": "40-80",
-             "fake_packets_size": "40-100",
-             "fake_packets_delay": "4-8",
-             "fake_packets_mode": "m4"
-           },
-           {
+                "type": "wireguard",
+                "tag": "\ud83c\uddee\ud83c\uddf7IR\ud83d\ude80YourIP\uD83D\uDEE1\uFE0F",
+                "local_address":       [
+                    "172.16.0.2/24",
+                    "2606:4700:110:8056:6ec9:563a:d8e7:5097/128"
+                ],
+                "private_key": "KCjQEsNIOKmDuov9MSnp1CkufGh2aAPwkV4NYx/reG4=",
+                "server": "8.6.112.63",
+                "server_port": 934,
+                "peer_public_key": "bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo=",
+                "mtu": 1280,
+                "noise":       {
+                    "fake_packet":         {
+                    "count": "40-80",
+                    "size": "40-100",
+                    "delay": "4-8",
+                    "mode": "m4"
+                    }
+                }
+            },
+            {
               "type": "shadowsocks",
               "tag": "\uD83E\uDDD1\u200D\uD83D\uDCBBDEVELOPED-BY-SINA-KSH\u26a1\ufe0f",
               "server": "127.0.0.1",
@@ -300,7 +301,7 @@ class Config_manager():
               "method": "none",
               "password": "bcaacba-caba-aabc-badc-bcbccbbacaaa"
             }
-          ]
+        ]
         if self.url.strip().startswith("{") or self.url.endswith(".json"):
             json_data = self.Get_json()
             if isinstance(json_data, dict) and "outbounds" in json_data:
@@ -437,7 +438,7 @@ class Config_manager():
             try:
                 with open(filename, 'w', encoding="utf-8") as file:
                     json.dump(final, file, indent = 4, ensure_ascii = True)
-                print(emoji.emojize(f'It saved : {filename}:check_mark_button:'))
+                    print(emoji.emojize(f'It saved : {filename}:check_mark_button:'))
             except Exception as e:
                 print(emoji.emojize(f' Error : {e} :cross_mark:'))     
         else:
@@ -445,11 +446,11 @@ class Config_manager():
             try:
                 with open(filename, 'w', encoding="utf-8") as file:
                     json.dump(config, file, indent = 4, ensure_ascii = True)
-                print(emoji.emojize(f'It saved : {filename}:check_mark_button:'))
+                    print(emoji.emojize(f'It saved : {filename}:check_mark_button:'))
             except Exception as e:
                 print(emoji.emojize(f' Error : {e} :cross_mark:')) 
 
-class URL_Manager(Config_manager):
+class URL_Manager(Config_Manager):
     def __init__(self, URL):
         super().__init__(URL)
         self.URL = URL
@@ -484,7 +485,7 @@ while play:
     
     if choose == 1:
         Url = input("Take me your sub link: ")
-        my_config = Config_manager(Url)
+        my_config = Config_Manager(Url)
         my_config.save_to_file()
         more = input("Do you need more configs? (Y,N): ")
         if more.upper() == "Y":
