@@ -375,7 +375,7 @@ class Config_Manager:
                 tag_counter += 1
         return new_config2
         
-    def save_to_file(self, filename = "configs"):
+    def save_to_file(self, filename = "configs.json"):
         if os.path.exists(filename):
             with open(filename, "r", encoding="utf-8") as file:
                 old_data = json.load(file)
@@ -476,8 +476,9 @@ while play:
     print("Check the list and choose one of them:")
     print("1. Get Configs from sub link")
     print("2. Get Configs from URL")
-    print("3. Exit")
-    
+    print("3. Reset Factory")
+    print("4. Exit")
+
     try:
         choose = int(input("Enter a number from the list: "))
     except:
@@ -502,9 +503,9 @@ while play:
             your_config.call_all()
             want = input('Do want to enter another URL config to add? (Y,N): ')
             if want.upper() == "Y":
-                want = True
+                Game = True
             else:
-                want = False
+                Game = False
                 break
         more = input("Do you need more configs (From sub link or URL config)? (Y,N): ")
         if more.upper() == "Y":
@@ -513,8 +514,24 @@ while play:
             play = False
             print(emoji.emojize("Goodbye :hand_with_fingers_splayed:"))
             break
-        
+
     elif choose == 3:
+        if not os.path.exists('configs.json'):
+            print(emoji.emojize("The configs.json is not found :cross_mark:"))
+            continue
+
+        Q = input("Are you sure to reset factory? (Y,N): ")
+        if Q.upper() == "Y":
+            try:
+                os.remove('configs.json')
+                print(emoji.emojize("The configs.json is deleted :check_mark_button:"))
+            except Exception as e:
+                print(emoji.emojize(f"Error: {e} :cross_mark:"))
+        else:
+            print(emoji.emojize("Reset factory canceled :cross_mark:"))
+            continue
+        
+    elif choose == 4:
         print(emoji.emojize("Goodbye :hand_with_fingers_splayed:"))
         break
         
