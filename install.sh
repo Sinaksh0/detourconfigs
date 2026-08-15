@@ -50,7 +50,7 @@ python config_manager.py || {
 }
 
 if [ -f configs ]; then
-    cp configs "$HOME/storage/shared/" && echo -e "\e[32m✅ All Configs copied to the file.\e[0m"
+    cp configs.json "$HOME/storage/shared/" && echo -e "\e[32m✅ All Configs copied to the file.\e[0m"
 else
     echo -e "\e[33m⚠️ configs file not found. Skipping copy.\e[0m"
 fi
