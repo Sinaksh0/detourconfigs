@@ -33,6 +33,16 @@ else
     echo -e "\e[32m✅ emoji already installed.\e[0m"
 fi
 
+if ! pip show requests > /dev/null 2>&1; then
+    echo -e "\e[33m📦 Installing requests library...\e[0m"
+    pip install requests|| {
+        echo -e "\e[31m❌ Failed to install requests. Exiting.\e[0m"
+        exit 1
+    }
+else
+    echo -e "\e[32m✅ Requests already installed.\e[0m"
+fi
+
 # مرحله 5: دریافت فایل پایتون
 echo -e "\e[33m📥 Downloading file...\e[0m"
 curl -fsSL https://raw.githubusercontent.com/Sinaksh0/detourconfigs/main/config.manager.py -o config_manager.py || {
